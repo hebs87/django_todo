@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from user_auth import views as auth_views
+from todo import views as todo_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Authentication
     path('register/', auth_views.register, name='register'),
     # To-Do
+    path('current/', todo_views.currenttodos, name='currenttodos'),
 ]
