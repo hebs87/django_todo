@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Authentication
     path('register/', auth_views.registeruser, name='registeruser'),
+    path('login/', auth_views.loginuser, name='loginuser'),
     path('logout/', auth_views.logoutuser, name='logoutuser'),
 
     # To-Do

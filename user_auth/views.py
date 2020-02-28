@@ -1,9 +1,8 @@
-from django.contrib import auth
-from django.contrib.auth import login
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 # Create your views here.
@@ -55,10 +54,43 @@ def registeruser(request):
             return render(request, 'register.html', context)
 
 
+def loginuser(request):
+    """
+    A view that verifies the user's details against the
+    DB records and logs them in if they match
+    """
+    # When routed to the login page
+    if request.method == 'GET':
+        context = {
+            'login_form': AuthenticationForm
+        }
+        return render(request, 'login.html', context)
+    else:
+        # Authenticate the user using the details entered in the
+        # login form. If user exists, we get a value. If not, we
+        # get a value of none
+        user = authenticate(
+            request,
+            username=request.POST['username'],
+            password=request.POST['password'])
+        # If user doesn't exist
+        if user is None:
+            error = "Username and password didn't match! Please try again!"
+            context = {
+                'login_form': AuthenticationForm,
+                'error': error
+            }
+            return render(request, 'login.html', context)
+        # If the user details match
+        else:
+            login(request, user)
+            return redirect('currenttodos')
+
+
 def logoutuser(request):
     """
     A view to log the user out when they click the link
     and redirects them to the homepage
     """
-    auth.logout(request)
+    logout(request)
     return redirect('home')
