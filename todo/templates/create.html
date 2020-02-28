@@ -2,14 +2,14 @@
 {% load bootstrap %}
 {% block content %}
 
-    <h1>Register</h1>
+    <h1>Create Todo</h1>
 
     <h2>{{ error }}</h2>
 
     <form method="POST">
         {% csrf_token %}
-        {{ register_form | bootstrap }}
-        <button class="btn btn-primary" type="submit">Register</button>
+        {{ todo_form | bootstrap }}
+        <button class="btn btn-primary" type="submit">Create</button>
     </form>
 
 {% endblock %}

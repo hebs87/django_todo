@@ -30,6 +30,9 @@
                     <!-- Options if user is logged in -->
                     {% if user.is_authenticated %}
                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'createtodo' %}">Create</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'logoutuser' %}">Logout</a>
                         </li>
                     <!-- Options if user is not logged in -->
