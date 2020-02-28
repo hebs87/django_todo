@@ -21,7 +21,10 @@ from todo import views as todo_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Authentication
-    path('register/', auth_views.register, name='register'),
+    path('register/', auth_views.registeruser, name='registeruser'),
+    path('logout/', auth_views.logoutuser, name='logoutuser'),
+
     # To-Do
+    path('', todo_views.home, name='home'),
     path('current/', todo_views.currenttodos, name='currenttodos'),
 ]

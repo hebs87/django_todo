@@ -1,3 +1,4 @@
+from django.contrib import auth
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from django.db import IntegrityError
@@ -6,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 # Create your views here.
-def register(request):
+def registeruser(request):
     """
     A view that allows users to register to the site.
     If the user routes to the register page, the register
@@ -52,3 +53,12 @@ def register(request):
                 'error': error
             }
             return render(request, 'register.html', context)
+
+
+def logoutuser(request):
+    """
+    A view to log the user out when they click the link
+    and redirects them to the homepage
+    """
+    auth.logout(request)
+    return redirect('home')
