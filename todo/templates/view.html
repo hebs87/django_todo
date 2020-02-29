@@ -14,6 +14,7 @@
         <button class="btn btn-primary" type="submit">Edit</button>
         <!-- Complete button linked to hidden form -->
         <button class="btn btn-success" type="submit" form="completed">Complete</button>
+        <button class="btn btn-danger" type="submit" form="delete">Delete</button>
         <a class="btn btn-secondary" href="{% url 'currenttodos' %}">Cancel</a>
     </form>
 
@@ -21,5 +22,11 @@
     <form id="completed" method="POST" action="{% url 'completetodo' todo.id %}" hidden>
         {% csrf_token %}
     </form>
+
+    <!-- Form to delete the item -->
+    <form id="delete" method="POST" action="{% url 'deletetodo' todo.id %}" hidden>
+        {% csrf_token %}
+    </form>
+
 
 {% endblock %}

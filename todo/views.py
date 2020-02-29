@@ -131,3 +131,16 @@ def completetodo(request, todo_id):
         # Save the changes
         todo.save()
         return redirect('currenttodos')
+
+
+@login_required(login_url='loginuser')
+def deletetodo(request, todo_id):
+    """
+    A view to allow the user to delete the item as completed
+    """
+    todo = get_object_or_404(Todo, pk=todo_id, user=request.user)
+
+    if request.method == 'POST':
+        # Update date_completed field with current time
+        todo.delete()
+        return redirect('currenttodos')
