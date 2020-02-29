@@ -7,11 +7,19 @@
 
     <h2>{{ error }}</h2>
 
+    <!-- Form to edit the item -->
     <form method="POST">
         {% csrf_token %}
         {{ edit_form | bootstrap }}
         <button class="btn btn-primary" type="submit">Edit</button>
+        <!-- Complete button linked to hidden form -->
+        <button class="btn btn-success" type="submit" form="completed">Complete</button>
         <a class="btn btn-secondary" href="{% url 'currenttodos' %}">Cancel</a>
+    </form>
+
+    <!-- Form to mark the item as completed -->
+    <form id="completed" method="POST" action="{% url 'completetodo' todo.id %}" hidden>
+        {% csrf_token %}
     </form>
 
 {% endblock %}

@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
+
 from .models import Todo
 from .forms import TodoForm
 
@@ -114,3 +116,18 @@ def edittodo(request, todo_id):
             }
 
             return render(request, "view.html", context)
+
+
+@login_required(login_url='loginuser')
+def completetodo(request, todo_id):
+    """
+    A view to allow the user to mark the item as completed
+    """
+    todo = get_object_or_404(Todo, pk=todo_id, user=request.user)
+
+    if request.method == 'POST':
+        # Update date_completed field with current time
+        todo.date_completed = timezone.now()
+        # Save the changes
+        todo.save()
+        return redirect('currenttodos')
