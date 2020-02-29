@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from todo.forms import TodoForm
+from .models import Todo
+from .forms import TodoForm
 
 
 # Create your views here.
@@ -11,14 +12,25 @@ def home(request):
     return render(request, 'home.html')
 
 
+@login_required(login_url='loginuser')
 def currenttodos(request):
     """
-    A view to render the currenttodos.html page
+    A view to render the currenttodos.html page and
+    display all open to-do items for a particular user
     """
-    return render(request, "currenttodos.html")
+    # Filter open items for the user that is logged in
+    all_todos = Todo.objects.filter(
+        user=request.user,
+        date_completed__isnull=True)
+
+    context = {
+        'all_todos': all_todos
+    }
+
+    return render(request, "currenttodos.html", context)
 
 
-@login_required
+@login_required(login_url='loginuser')
 def createtodo(request):
     """
     A view that allows users to create a to-do item

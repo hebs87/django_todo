@@ -1,4 +1,5 @@
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
@@ -87,6 +88,7 @@ def loginuser(request):
             return redirect('currenttodos')
 
 
+@login_required(login_url='loginuser')
 def logoutuser(request):
     """
     A view to log the user out when they click the link

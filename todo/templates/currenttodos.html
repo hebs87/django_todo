@@ -3,4 +3,20 @@
 
     <h1>Current Todos</h1>
 
+    {% if all_todos %}
+        <ul>
+            {% for todo in all_todos %}
+                <li>
+                    {% if todo.important %}<strong>{% endif %}
+                    {{ todo.title }}
+                    {% if todo.important %}</strong>{% endif %}
+                    {% if todo.memo %} - {{ todo.memo }}{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h4>You have no open Todos</h4>
+    {% endif %}
+    <a href="{% url 'createtodo' %}">Create Todo</a>
+
 {% endblock %}
