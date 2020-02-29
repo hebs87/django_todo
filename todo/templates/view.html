@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap %}
+{% block title %} | Edit | #{{ todo.id }} - {{ todo.title }}{% endblock %}
 {% block content %}
 
     <h1>{{ todo.title }}</h1>
