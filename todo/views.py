@@ -33,6 +33,27 @@ def currenttodos(request):
 
 
 @login_required(login_url='loginuser')
+def completedtodos(request):
+    """
+    A view to render the completedtodos.html page and
+    display all completed to-do items for a particular user
+    """
+    # Filter open items for the user that is logged in
+    # Order by date_completed - newest first
+    all_todos = Todo.objects\
+        .filter(
+            user=request.user,
+            date_completed__isnull=False)\
+        .order_by('-date_completed')
+
+    context = {
+        'all_todos': all_todos
+    }
+
+    return render(request, "completed.html", context)
+
+
+@login_required(login_url='loginuser')
 def createtodo(request):
     """
     A view that allows users to create a to-do item
