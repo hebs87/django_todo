@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block content %}
+
+    <h1>{{ todo.title }}</h1>
+
+    <h2>{{ error }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ edit_form | bootstrap }}
+        <button class="btn btn-primary" type="submit">Edit</button>
+        <a class="btn btn-secondary" href="{% url 'currenttodos' %}">Cancel</a>
+    </form>
+
+{% endblock %}

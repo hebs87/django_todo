@@ -6,12 +6,14 @@
     {% if all_todos %}
         <ul>
             {% for todo in all_todos %}
-                <li>
-                    {% if todo.important %}<strong>{% endif %}
-                    {{ todo.title }}
-                    {% if todo.important %}</strong>{% endif %}
-                    {% if todo.memo %} - {{ todo.memo }}{% endif %}
-                </li>
+                <a href="{% url 'edittodo' todo.id %}">
+                    <li>
+                        {% if todo.important %}<strong>{% endif %}
+                        {{ todo.title }}
+                        {% if todo.important %}</strong>{% endif %}
+                        {% if todo.memo %} - {{ todo.memo }}{% endif %}
+                    </li>
+                </a>
             {% endfor %}
         </ul>
     {% else %}

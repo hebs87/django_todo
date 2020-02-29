@@ -17,7 +17,7 @@ def registeruser(request):
     # When routed to the register page
     if request.method == 'GET':
         context = {
-            'register_form': UserCreationForm
+            'register_form': UserCreationForm()
         }
         return render(request, 'register.html', context)
     else:
@@ -41,7 +41,7 @@ def registeruser(request):
                 # Tell user the username is already taken
                 error = "That username is already taken! Please try again!"
                 context = {
-                    'register_form': UserCreationForm,
+                    'register_form': UserCreationForm(),
                     'error': error
                 }
                 return render(request, 'register.html', context)
@@ -49,7 +49,7 @@ def registeruser(request):
             # Tell user the passwords didn't match
             error = "Passwords didn't match! Please try again!"
             context = {
-                'register_form': UserCreationForm,
+                'register_form': UserCreationForm(),
                 'error': error
             }
             return render(request, 'register.html', context)
@@ -63,7 +63,7 @@ def loginuser(request):
     # When routed to the login page
     if request.method == 'GET':
         context = {
-            'login_form': AuthenticationForm
+            'login_form': AuthenticationForm()
         }
         return render(request, 'login.html', context)
     else:
@@ -78,7 +78,7 @@ def loginuser(request):
         if user is None:
             error = "Username and password didn't match! Please try again!"
             context = {
-                'login_form': AuthenticationForm,
+                'login_form': AuthenticationForm(),
                 'error': error
             }
             return render(request, 'login.html', context)
